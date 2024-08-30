@@ -51,11 +51,11 @@ const switchPlayer = function () {
 };
 const player0Win = function () {
   player0El.classList.add('player--winner');
-  winner0El.classList.remove('hidden');
+  //winner0El.classList.remove('hidden');
 };
 const player1Win = function () {
   player1El.classList.add('player--winner');
-  winner1El.classList.remove('hidden');
+  //winner1El.classList.remove('hidden');
 };
 const judgeWinner = function () {
   //pokerEl.classList.add('hidden');
@@ -67,15 +67,31 @@ const judgeWinner = function () {
       //popup here
       popup.classList.add('show');
       displayMessage('You Both Win The Game!');
-    } else scores[0] > scores[1] ? player0Win() : player1Win();
+    } else if (scores[0] > scores[1]) {
+      player0Win();
+      popup.classList.add('show');
+      displayMessage('Player 1 Wins The Game!');
+    } else {
+      player1Win();
+      popup.classList.add('show');
+      displayMessage('Player 2 Wins The Game!');
+    }
   } else if (scores[0] > 10.5 && scores[1] > 10.5) {
     player0El.classList.add('player--lose');
     player1El.classList.add('player--lose');
-    // popup
+    // Display popup when game over
     popup.classList.add('show');
     displayMessage('You both lose the game!');
   } else {
-    scores[0] > scores[1] ? player1Win() : player0Win();
+    if (scores[0] > scores[1]) {
+      player0Win();
+      popup.classList.add('show');
+      displayMessage('Player 2 Wins The Game!');
+    } else {
+      player1Win();
+      popup.classList.add('show');
+      displayMessage('Player 1 Wins The Game!');
+    }
   }
 };
 // display the message on popup
