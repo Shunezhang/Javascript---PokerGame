@@ -11,6 +11,8 @@ const pokerEl = document.querySelector('.poker');
 const bntNew = document.querySelector('.btn--new');
 const bntRoll = document.querySelector('.btn--roll');
 const bntHold = document.querySelector('.btn--hold');
+const closePopupButton = document.getElementById('closePopup');
+const popup = document.getElementById('myPopup');
 
 let scores, pokerArr, activePlayer, playing;
 
@@ -45,7 +47,7 @@ const switchPlayer = function () {
   activePlayer = 1;
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
-  pokerEl.classList.add('hidden');
+  //pokerEl.classList.add('hidden');
 };
 const player0Win = function () {
   player0El.classList.add('player--winner');
@@ -56,21 +58,30 @@ const player1Win = function () {
   winner1El.classList.remove('hidden');
 };
 const judgeWinner = function () {
-  pokerEl.classList.add('hidden');
+  //pokerEl.classList.add('hidden');
   playing = false;
   if (scores[0] <= 10.5 && scores[1] <= 10.5) {
     if (scores[0] === scores[1]) {
       player0Win();
       player1Win();
+      //popup here
+      popup.classList.add('show');
+      displayMessage('You Both Win The Game!');
     } else scores[0] > scores[1] ? player0Win() : player1Win();
   } else if (scores[0] > 10.5 && scores[1] > 10.5) {
     player0El.classList.add('player--lose');
     player1El.classList.add('player--lose');
+    // popup
+    popup.classList.add('show');
+    displayMessage('You both lose the game!');
   } else {
     scores[0] > scores[1] ? player1Win() : player0Win();
   }
 };
-
+// display the message on popup
+const displayMessage = function (message) {
+  document.getElementById('popupHeader').textContent = message;
+};
 init();
 //Rolling poker functionality
 bntRoll.addEventListener('click', function () {
@@ -126,3 +137,13 @@ bntHold.addEventListener('click', function () {
 
 //NewGame functionality
 bntNew.addEventListener('click', init);
+
+// close popup functionality
+closePopupButton.addEventListener('click', function () {
+  popup.classList.remove('show');
+});
+window.addEventListener('click', function (event) {
+  if (event.target == popup) {
+    popup.classList.remove('show');
+  }
+});
