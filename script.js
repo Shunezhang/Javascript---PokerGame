@@ -66,7 +66,7 @@ const judgeWinner = function () {
       player1Win();
       //popup here
       popup.classList.add('show');
-      displayMessage('You Both Win The Game!');
+      displayMessage("It's a draw!");
     } else if (scores[0] > scores[1]) {
       player0Win();
       popup.classList.add('show');
@@ -102,35 +102,40 @@ init();
 //Rolling poker functionality
 bntRoll.addEventListener('click', function () {
   if (playing) {
-    //1. Generating a random poker
-    //const poker = Math.trunc(Math.random() * 13) + 1;
-    let i = Math.trunc(Math.random() * 52);
-    const poker = pokerArr[i];
-    pokerArr.splice(i, 1);
-
-    //2. display the poker
-    pokerEl.classList.remove('hidden');
-    console.log(poker);
-    pokerEl.src = `poker-${poker}.jpg`;
-    bntHold.disabled = false;
-
-    //3. Check for poker J, Q, K: if true, score + 0.5
-    if (poker <= 10) {
-      // Add poker to score
-      scores[activePlayer] += poker;
+    if (pokerArr.length === 0) {
+      console.log('No more cards to draw.');
+      return;
     } else {
-      // score + 0.5
-      scores[activePlayer] += 0.5;
-    }
-    document.getElementById(`score--${activePlayer}`).textContent =
-      scores[activePlayer];
-    if (scores[activePlayer] >= 10.5) {
-      //playing = false;
-      if (activePlayer === 0) {
-        switchPlayer();
+      //1. Generating a random poker
+      let i = Math.trunc(Math.random() * pokerArr.length);
+      console.log(i);
+      let poker = pokerArr[i];
+      pokerArr.splice(i, 1);
+
+      //2. display the poker
+      pokerEl.classList.remove('hidden');
+      console.log(poker);
+      pokerEl.src = `poker-${poker}.jpg`;
+      bntHold.disabled = false;
+
+      //3. Check for poker J, Q, K: if true, score + 0.5
+      if (poker <= 10) {
+        // Add poker to score
+        scores[activePlayer] += poker;
       } else {
-        // Judge the result
-        judgeWinner();
+        // score + 0.5
+        scores[activePlayer] += 0.5;
+      }
+      document.getElementById(`score--${activePlayer}`).textContent =
+        scores[activePlayer];
+      if (scores[activePlayer] >= 10.5) {
+        //playing = false;
+        if (activePlayer === 0) {
+          switchPlayer();
+        } else {
+          // Judge the result
+          judgeWinner();
+        }
       }
     }
   }
