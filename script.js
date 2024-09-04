@@ -70,27 +70,27 @@ const judgeWinner = function () {
     } else if (scores[0] > scores[1]) {
       player0Win();
       popup.classList.add('show');
-      displayMessage('Player 1 Wins The Game!');
+      displayMessage('Player 1 Wins The Game🎉');
     } else {
       player1Win();
       popup.classList.add('show');
-      displayMessage('Player 2 Wins The Game!');
+      displayMessage('Player 2 Wins The Game🎉');
     }
   } else if (scores[0] > 10.5 && scores[1] > 10.5) {
     player0El.classList.add('player--lose');
     player1El.classList.add('player--lose');
     // Display popup when game over
     popup.classList.add('show');
-    displayMessage('You both lose the game!');
+    displayMessage('You both lose the game😢');
   } else {
     if (scores[0] > scores[1]) {
       player0Win();
       popup.classList.add('show');
-      displayMessage('Player 2 Wins The Game!');
+      displayMessage('Player 2 Wins The Game🎉');
     } else {
       player1Win();
       popup.classList.add('show');
-      displayMessage('Player 1 Wins The Game!');
+      displayMessage('Player 1 Wins The Game🎉');
     }
   }
 };
